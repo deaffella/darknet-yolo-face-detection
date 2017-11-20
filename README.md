@@ -28,6 +28,6 @@ make
 - run test on image
 
 ```sh
-./darknet yolo test ../../data/fddb-face/yolo-face.cfg ../../data/fddb-face/yolo-face_final.weights test.jpg
+./darknet yolo test yolo-face.cfg yolo-face_final.weights test.jpg
 ```
 
