@@ -57,15 +57,14 @@ void *detect_in_thread(void *ptr)
     } else {
         error("Last layer must produce detections\n");
     }
-    if (nms > 0) do_nms_obj(boxes, probs, l.w*l.h*l.n, l.classes, nms);
+    if (nms > 0) do_nms_sort(boxes, probs, demo_detections, l.classes, nms);
 
     printf("\033[2J");
     printf("\033[1;1H");
     printf("\nFPS:%.1f\n",fps);
     printf("Objects:\n\n");
     image display = buff[(buff_index+2) % 3];
-    draw_detections(display, demo_detections, demo_thresh, boxes, probs, 0, demo_names, demo_alphabet, demo_classes);
-
+    draw_detections(display, demo_detections, demo_thresh, boxes, probs, 0, demo_names, demo_alphabet, l.classes);
     demo_index = (demo_index + 1)%demo_frame;
     running = 0;
     return 0;
@@ -74,7 +73,7 @@ void *detect_in_thread(void *ptr)
 void *fetch_in_thread(void *ptr)
 {
     int status = fill_image_from_stream(cap, buff[buff_index]);
-    letterbox_image_into(buff[buff_index], net->w, net->h, buff_letter[buff_index]);
+    buff_letter[buff_index] = resize_image(buff[buff_index], net->w, net->h);
     if(status == 0) demo_done = 1;
     return 0;
 }
