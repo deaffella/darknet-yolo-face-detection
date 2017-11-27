@@ -10,7 +10,7 @@ For questions or issues please use the [Google Group](https://groups.google.com/
 
 ---------------------------------------
 
-## What this fork do
+## About this fork
 This fork is to make darknet work with yolo-face weights.
 
 ## Follow these steps:
